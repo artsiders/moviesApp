@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ActivityIndicator } from 'react-native'
 
 const About = () => {
     return (
-        <View>
+        <View style={style.container}>
             <Text style={style.text}>
                 à propos !
             </Text>
@@ -22,6 +22,14 @@ const About = () => {
 export default About;
 
 const style = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#000',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: "100%",
+        width: "100%"
+    },
     text: {
         letterSpacing: 10,
         textTransform: "capitalize",

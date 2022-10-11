@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import About from './components/About';
+import About from './src/components/About';
+import Form from './src/components/Form';
 // import { TabNavigator } from 'react-navigation';
 
 
@@ -13,19 +14,16 @@ import About from './components/About';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>art sider app</Text>
+      {/* <Text style={styles.text}>art sider app</Text> */}
+      <Form />
       <StatusBar style="auto" />
-      <About />
+      {/* <About /> */}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#000',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   text: {
     fontSize: 30,
