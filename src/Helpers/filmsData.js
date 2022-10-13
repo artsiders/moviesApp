@@ -3,11 +3,38 @@ const data = [
     {
         id: 181808,
         vote_average: 7.2,
+        title: "Dragon Ball Super Broly",
+        poster_path: "",
+        original_title: "Dragon Ball",
+        overview: "c'est l'histoire de jeune broly manipuler par son pere afin de réalisé ses noir dessin...",
+        release_date: "2018"
+    },
+    {
+        id: 181832,
+        vote_average: 7.2,
+        title: "Kimi no Suizo wo Tabetai",
+        poster_path: "",
+        original_title: "Kimi no Suizo",
+        overview: "histoire très triste est émouvente de deux jeune lycéen...",
+        release_date: "2016"
+    },
+    {
+        id: 182308,
+        vote_average: 7.2,
+        title: "The Last Naruto The Movie",
+        poster_path: "",
+        original_title: "",
+        overview: "Le dernier film Naruto juste avant la 'Next Generation...",
+        release_date: "2017"
+    },
+    {
+        id: 181458,
+        vote_average: 7.2,
         title: "Star Wars VIII - Les derniers Jedi",
         poster_path: "",
         original_title: "Star Wars: The Last Jedi",
         overview: "Nouvel épisode de la saga. Les héros du Réveil de la force rejoignent les figures légendaires de la galaxie dans une aventure épique qui révèle des secrets ancestraux sur la Force et entraîne de choquantes révélations sur le passé…",
-        release_date: "2017-12-13"
+        release_date: "2017"
     },
     {
         id: 181809,
