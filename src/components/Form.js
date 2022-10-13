@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, TextInput, Button, Platform, Image } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Button, Platform, Image, ScrollView } from 'react-native'
+const banner = require("../assets/salim_banner.png");
+const svgImage = require("../assets/pizza-sharing-pana-3989.png");
 
 const Form = () => {
     const [login, setLogin] = useState("banane");
     const [pass, setPass] = useState("******");
+    const [connect, setConnect] = useState(false);
     const handleChangeLogin = (e) => {
         setLogin(e)
     }
@@ -11,16 +14,20 @@ const Form = () => {
         setPass(e)
     }
     const click = () => {
-        setLogin("test")
+        setLogin("")
+        setPass("")
+        connect ? setConnect(false) : setConnect(true)
     }
+    let color = "";
+    connect ? color = "#25b782" : color = '#e2232b'
     return (
-        <>
-            <View style={style.header}>
+        <ScrollView>
+            <View style={{ ...style.header, backgroundColor: color }}>
                 <Text style={style.text}>art sider appliaction</Text>
             </View>
             <View style={style.container}>
-                <View style={{ ...style.view, marginBottom: 20, marginTop: 0, overflow: "hidden" }}>
-                    <Image source={require("../assets/salim_banner.png")}
+                <View style={{ ...style.view, marginBottom: 20, marginTop: 0, overflow: "hidden", backgroundColor: color }}>
+                    <Image source={connect ? svgImage : banner}
                         style={{ width: "100%", height: "100%" }}></Image>
                 </View>
                 <Text>login</Text>
@@ -44,14 +51,27 @@ const Form = () => {
                     paddingHorizontal: 5
                 }}>
                     <Button
-                        title="connection"
-                        color="#e2232b"
-                        style={style.button}
+                        title={connect ? "connected" : "disconnected"}
+                        color={color}
                         accessibilityLabel="Learn more about this purple button"
-                        onClick={click}
+                        onPress={click}
                     />
                 </View>
-                <View style={{ ...style.view, display: "none" }}>
+                <View style={{ ...style.view, backgroundColor: color }}>
+                    <Text style={{
+                        color: "white",
+                        fontSize: 20,
+                    }}>
+                        login : {login}
+                    </Text>
+                    <Text style={{
+                        color: "white",
+                        fontSize: 20,
+                    }}>
+                        pass : {pass}
+                    </Text>
+                </View>
+                <View style={{ ...style.view, backgroundColor: color }}>
                     <Text style={{
                         color: "white",
                         fontSize: 20,
@@ -67,7 +87,7 @@ const Form = () => {
                 </View>
             </View>
 
-        </>
+        </ScrollView>
     )
 }
 export default Form;
