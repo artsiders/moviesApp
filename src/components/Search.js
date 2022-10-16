@@ -2,13 +2,16 @@ import React from 'react';
 import { View, TextInput, Button, StyleSheet, Text, FlatList } from 'react-native'
 import films from '../Helpers/filmsData'
 import FilmItem from './FilmItem';
+import FlatButton from './shared/FlatButton';
 
 export default function Search() {
+
     return (
         <View style={styles.main_container}>
             <View style={styles.search_box}>
                 <TextInput style={styles.textinput} placeholder='Titre du film' />
-                <Button style={styles.button} onPress={() => { }} title="🔍" color='white'></Button>
+                {/* <Button style={styles.button} onPress={() => { }} title="🔍" color='white'></Button> */}
+                <FlatButton text='search' onPress={() => { }} />
             </View>
             {/* Ici j'ai simplement repris l'exemple sur la documentation de la FlatList */}
             <FlatList

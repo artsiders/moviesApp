@@ -5,7 +5,7 @@ const FilmItem = ({ film }) => {
         <View style={styles.main_container}>
             <Image
                 style={styles.image}
-                source={{ uri: "image" }}
+            // source={require(film.image)}
             />
             <View style={styles.content_container}>
                 <View style={styles.header_container}>
@@ -13,7 +13,7 @@ const FilmItem = ({ film }) => {
                     <Text style={styles.vote_text}>{film.vote_average}</Text>
                 </View>
                 <View style={styles.description_container}>
-                    <Text style={styles.description_text} numberOfLines={6}>{film.overview}</Text>
+                    <Text style={styles.description_text} numberOfLines={6}>{film.image}</Text>
                     {/* La propriété numberOfLines permet de couper un texte si celui-ci est trop long,*/}
                     {/* il suffit de définir un nombre maximum de ligne */}
                 </View>
