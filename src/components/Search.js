@@ -1,63 +1,71 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TextInput, StyleSheet, FlatList, ActivityIndicator } from 'react-native'
 import { getFilmsFromApiWithSearchedText } from '../../api/TMDBApi';
+// import axios from 'axios';
 import FilmItem from './FilmItem';
 import FlatButton from './shared/FlatButton';
-
-function useForceUpdate() {
-    const [_, setValue] = useState(0); // integer state
-    return () => setValue(value => value + 1); // update state to force render
-    // An function that increment 👆🏻 the previous state like here 
-    // is better than directly setting `value + 1`
-}
 
 export default function Search() {
 
     const [films, setFilms] = useState([])
     const [isLoading, setIsLoading] = useState(false)
-    let searchText = ""
+    const [searchText, setSearchText] = useState("")
+    const [totalPages, setTotalPages] = useState(0)
+    const [page, setPage] = useState(0)
+
+    let oldFilms = films
 
     const loadFilms = () => {
-        if (searchText.length > 0) {
-            setIsLoading(true)
-            getFilmsFromApiWithSearchedText(searchText).then(data => {
-                setFilms(data.results)
-                setIsLoading(false)
+        setIsLoading(true)
+        let curentPage = page + 1
+        getFilmsFromApiWithSearchedText(searchText, curentPage).then(data => {
+            setPage(data.page)
+            setTotalPages(data.total_pages)
+            setFilms([...oldFilms, ...data.results])
+            setIsLoading(false)
+        })
+            .catch(error => {
+                console.warn(error);
             })
-        }
     }
-    const handlesearch = (text) => {
-        searchText = text
+    const searchFilm = () => {
+        oldFilms = []
+        setFilms([])
+        setPage(0)
+        setTotalPages(0)
+        loadFilms()
     }
-    console.log(searchText);
+    const displayLoading = () => {
+        if (isLoading)
+            return <ActivityIndicator size='large' color="#F01D71" />
+    }
     return (
         <View style={styles.main_container}>
             <View style={styles.search_box}>
                 <TextInput
+                    defaultValue='dragon balll'
                     style={styles.textinput}
                     placeholder='Titre du film'
-                    onChangeText={handlesearch}
-                    onSubmitEditing={loadFilms}
+                    onChangeText={(text) => setSearchText(text)}
+                    onSubmitEditing={searchFilm}
                 />
-                <FlatButton text='search' onPress={loadFilms} />
+                <FlatButton text='search' onPress={searchFilm} />
             </View>
             {/* Ici j'ai simplement repris l'exemple sur la documentation de la FlatList */}
-            {
-                isLoading ?
-                    <View style={styles.loading_container}>
-                        <ActivityIndicator size='large' color="#F01D71" />
-                    </View>
-                    :
-                    <FlatList
-                        data={films}
-                        keyExtractor={(item) => item.id.toString()}
-                        renderItem={({ item }) => <FilmItem film={item} />}
-                        onEndReachedThreshold={0.5}
-                        onEndReached={() => {
-                            console.log("onEndReached")
-                        }}
-                    />
-            }
+            <FlatList
+                data={films}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={({ item }) => <FilmItem film={item} />}
+                onEndReachedThreshold={0.5}
+                onEndReached={() => {
+                    if (page < totalPages) {
+                        loadFilms()
+                    }
+                }}
+            />
+            <View style={styles.loading_container}>
+                {displayLoading()}
+            </View>
         </View>
 
 
@@ -90,11 +98,10 @@ const styles = StyleSheet.create({
         backgroundColor: "white"
     },
     loading_container: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 100,
-        bottom: 0,
+        position: "absolute",
+        height: "100%",
+        width: "100%",
+        top: 55,
         alignItems: 'center',
         justifyContent: 'center'
     }
