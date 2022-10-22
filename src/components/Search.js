@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, StyleSheet, FlatList, ActivityIndicator } from 'react-native'
 import { getFilmsFromApiWithSearchedText } from '../../api/TMDBApi';
-// import axios from 'axios';
 import FilmItem from './FilmItem';
 import FlatButton from './shared/FlatButton';
 
-export default function Search() {
+export default function Search(props) {
 
     const [films, setFilms] = useState([])
     const [isLoading, setIsLoading] = useState(false)
@@ -66,6 +65,9 @@ export default function Search() {
             <View style={styles.loading_container}>
                 {displayLoading()}
             </View>
+            <View style={styles.search_box}>
+                <FlatButton text='formulaire' onPress={() => props.navigation.push('formulaire')} />
+            </View>
         </View>
 
 
@@ -75,7 +77,7 @@ export default function Search() {
 const styles = StyleSheet.create({
     main_container: {
         flex: 1,
-        marginTop: 30,
+        // marginTop: 30,
         backgroundColor: "#ececec",
     },
     textinput: {
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
     },
     search_box: {
         flexDirection: 'row',
-        marginRight: 6,
+        // marginRight: 6,
         height: 50,
         padding: 5,
         backgroundColor: "white"

@@ -4,6 +4,7 @@ import { } from 'react-native';
 import Search from './src/components/Search';
 import About from './src/components/About';
 import Form from './src/components/Form';
+import Navigation from './src/Navigation/Navigation';
 // import { TabNavigator } from 'react-navigation';
 
 
@@ -15,6 +16,6 @@ import Form from './src/components/Form';
 export default function App() {
   return (
     // <Form />
-    <Search />
+    <Navigation />
   );
 }
