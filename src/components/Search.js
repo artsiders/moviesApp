@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, FlatList, ActivityIndicator } from 'react-native'
 import { getFilmsFromApiWithSearchedText } from '../../api/TMDBApi';
 import FilmItem from './FilmItem';
 import FlatButton from './shared/FlatButton';
 
 export default function Search(props) {
-
+    const { navigate } = props.navigation
     const [films, setFilms] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [searchText, setSearchText] = useState("")
@@ -38,11 +38,16 @@ export default function Search(props) {
         if (isLoading)
             return <ActivityIndicator size='large' color="#F01D71" />
     }
+
+    // filmdetail
+    const displayDetailForFilm = (idFilm) => {
+        navigate("details", { idFilm: idFilm })
+    }
+
     return (
         <View style={styles.main_container}>
             <View style={styles.search_box}>
                 <TextInput
-                    defaultValue='dragon balll'
                     style={styles.textinput}
                     placeholder='Titre du film'
                     onChangeText={(text) => setSearchText(text)}
@@ -54,20 +59,24 @@ export default function Search(props) {
             <FlatList
                 data={films}
                 keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => <FilmItem film={item} />}
+                renderItem={({ item }) => <FilmItem
+                    film={item}
+                    displayDetailForFilm={displayDetailForFilm}
+                />}
                 onEndReachedThreshold={0.5}
                 onEndReached={() => {
                     if (page < totalPages) {
                         loadFilms()
                     }
                 }}
+
             />
             <View style={styles.loading_container}>
                 {displayLoading()}
             </View>
-            <View style={styles.search_box}>
+            {/* <View style={styles.search_box}>
                 <FlatButton text='formulaire' onPress={() => props.navigation.push('formulaire')} />
-            </View>
+            </View> */}
         </View>
 
 
